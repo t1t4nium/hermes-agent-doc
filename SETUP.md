@@ -20,7 +20,43 @@ echo vm.swappiness=10 >> /etc/sysctl.d/25-custom.conf
 Installation des paquets requis par Hermes Agent :
 
 ```
-apt install build-essential curl ffmpeg git imagemagick libffi-dev openjdk-25-jre-headless python3-dev ripgrep
+sudo apt install build-essential curl ffmpeg git imagemagick libffi-dev openjdk-25-jre-headless python3-dev ripgrep
+```
+
+Pour permettre à la gateway de redémarrer automatiquement après un reboot, il faut activer linger sur l'utilisateur qui exécutera Hermes Agent :
+
+```
+sudo loginctl enable-linger <user>
+```
+
+### Installation
+
+Commande d'installation du [site officiel](https://hermes-agent.nousresearch.com/) :
+
+```
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+```
+
+S'en suit le setup.
+
+Puis :
+
+- récupération de la liste des skills
+- un petit *doctor fix*
+- enfin le setup de la gateway
+
+```
+hermes skills list
+hermes doctor --fix
+hermes gateway install
+```
+
+## Desktop
+
+Installation du desktop :
+
+```
+hermes desktop
 ```
 
 ## Server
