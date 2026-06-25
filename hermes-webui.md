@@ -8,7 +8,7 @@ Hermes Agent doit être installé et fonctionnel.
 
 ## Setup
 
-Je m'en sers uniquement pour un setup server accessible uniquement depuis le réseau local. **La configuration décrite ci-dessous n'est pas à exposer sur Internet.**
+Je m'en sers pour un setup server accessible uniquement depuis le réseau local. **La configuration décrite ci-dessous n'est pas à exposer sur Internet.**
 
 ## Installation
 
