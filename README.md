@@ -17,3 +17,4 @@ je mets les liens officiels ci-dessous.
 - [Documentation](https://hermes-agent.nousresearch.com/docs)
 - [GitHub](https://github.com/NousResearch/hermes-agent)
 - [Nous Research](https://nousresearch.com)
+- [Discord](https://discord.gg/NousResearch)
