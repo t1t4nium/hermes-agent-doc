@@ -1,6 +1,7 @@
 # Hermes Agent
 
-Ce repo contient ma documentation sur l'agent Hermes.
+Ce dépôt contient ma documentation sur Hermes Agent. J'y documente en français
+mes procédures et méthodes de travail avec mes agents.
 
 ## Introduction
 
