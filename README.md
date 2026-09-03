@@ -3,6 +3,14 @@
 Ce dépôt contient ma documentation sur Hermes Agent. J'y documente en français
 mes procédures et méthodes de travail avec mes agents.
 
+## Sommaire
+
+- installation : installer et démarrer Hermes Agent
+- configuration : interfaces, providers, fallback, plugins
+- agent : profils, mémoire, tools, skills, fichiers de contexte
+- reseau : relier les agents et les machines, synchroniser les données
+- securite : confidentialité, confinement, gestion des secrets, durcissement
+
 ## Introduction
 
 Hermes est un agent IA développé par Nous Research. Tout comme OpenClaw il est
@@ -19,3 +27,4 @@ je mets les liens officiels ci-dessous.
 - [GitHub](https://github.com/NousResearch/hermes-agent)
 - [Nous Research](https://nousresearch.com)
 - [Discord](https://discord.gg/NousResearch)
+- [L'actualité Hermes Agent 🇫🇷](https://github.com/t1t4nium/hermes-agent-news-fr)
