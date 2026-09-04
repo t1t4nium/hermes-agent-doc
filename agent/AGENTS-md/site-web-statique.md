@@ -1,24 +1,8 @@
-# AGENTS.md
+# Site web d'une photographe
 
-Les fichiers AGENTS.md sont des fichiers de contexte. L'usage principal est de
-donner à l'agent des informations concernant un projet ou un espace de travail.
-
-Ce qu'on y met :
-- structure d'un projet
-- conventions à suivre
-- instructions spécifiques au projet
-- toute information utile ou nécessaire au projet
-
-## Exemples
-
-Différents exemples pour illustrer les cas d'usage et les informations
-pertinentes à écrire.
-
-### Site web statique
-
-Dans cet exemple, l'agent est en charge de mettre à jour et publier
-un site web construit avec un SSG (Static Site Generator), et d'aider
-l'utilisateur à rédiger les pages.
+Dans cet exemple, l'agent est en charge de mettre à jour et publier un site web
+construit avec un SSG (Static Site Generator), et d'aider l'utilisateur à
+rédiger les pages.
 
 Voici à quoi pourrait ressembler le fichier AGENTS.md déposé à la racine du
 dossier du projet.
