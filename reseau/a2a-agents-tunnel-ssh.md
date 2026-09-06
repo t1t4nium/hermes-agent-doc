@@ -40,7 +40,7 @@ Machine locale (derrière NAT)               VPS public
 │ Agent A (superviseur)        │           │ Agent B (agent distant)    │
 │   A2A     127.0.0.1:9900     │           │   A2A     127.0.0.1:9900   │
 │   forward  127.0.0.1:9902    │◀───SSH───▶│   reverse 127.0.0.1:9901   │
-│   reverse (vers VPS)         │  tunnel   │   dashboard 127.0.0.1:9119 │
+│   reverse (vers VPS)         │  tunnel   │                            │
 └──────────────────────────────┘           └────────────────────────────┘
 ```
 
@@ -62,12 +62,6 @@ Machine locale (derrière NAT)               VPS public
 - Un accès SSH de la machine locale vers le VPS (clé privée, alias dans
   `~/.ssh/config` si possible).
 - `ss` disponible pour vérifier les ports (paquet `iproute2`).
-- Pour le dashboard sur le VPS : Node.js. Attention, l'installateur officiel
-  d'Hermes peut sauter silencieusement l'installation de Node (étape non
-  fatale). Symptôme : `hermes dashboard` répond « Web UI frontend not built
-  and npm is not available » alors que le CLI et le gateway fonctionnent.
-  Correctif : `curl -fsSL https://hermes-agent.nousresearch.com/install.sh |
-  bash -s -- --ensure node`.
 
 ## Étapes
 
@@ -105,7 +99,18 @@ connexions locales, par conception.
 
 ### 3. Déclarer les pairs
 
-Côté machine locale, dans `~/.hermes/config.yaml` :
+Le token placé dans `auth.token` est celui que la machine présente au pair
+distant. C'est un secret : il vit dans `~/.hermes/.env`, et `config.yaml` ne
+le référence que par substitution `${VAR}`, jamais en clair.
+
+Côté machine locale, ajouter dans `~/.hermes/.env` le token que la machine
+présente au VPS :
+
+```bash
+A2A_AGENT_A_TOKEN="<TOKEN_A>"
+```
+
+Puis déclarer le pair dans `~/.hermes/config.yaml` :
 
 ```yaml
 a2a_agents:
@@ -113,11 +118,18 @@ a2a_agents:
     url: http://127.0.0.1:9902
     auth:
       type: bearer
-      token: <TOKEN_B>
+      token: ${A2A_AGENT_A_TOKEN}
     timeout: 120
 ```
 
-Côté VPS, déclarer l'agent local sur le port reverse :
+Côté VPS, ajouter dans `~/.hermes/.env` le token que le VPS présente à la
+machine locale :
+
+```bash
+A2A_AGENT_B_TOKEN="<TOKEN_B>"
+```
+
+Puis déclarer l'agent local sur le port reverse dans `~/.hermes/config.yaml` :
 
 ```yaml
 a2a_agents:
@@ -125,9 +137,14 @@ a2a_agents:
     url: http://127.0.0.1:9901
     auth:
       type: bearer
-      token: <TOKEN_A>
+      token: ${A2A_AGENT_B_TOKEN}
     timeout: 120
 ```
+
+Chaque token présenté doit correspondre à celui que le pair attend dans son
+`A2A_PEER_TOKENS` (section 2) :
+- le VPS vérifie `<TOKEN_A>` via `A2A_PEER_TOKENS="agent-a:<TOKEN_A>"`
+- la machine locale vérifie `<TOKEN_B>` via `A2A_PEER_TOKENS="agent-b:<TOKEN_B>"`
 
 ### 4. Ouvrir le tunnel SSH permanent (machine locale)
 
@@ -177,29 +194,6 @@ Pour que le tunnel survive à la fermeture de session et démarre au boot :
 sudo loginctl enable-linger <user>
 ```
 
-### 5. Dashboard distant (optionnel)
-
-Sur le VPS, binder le dashboard sur loopback :
-
-```bash
-hermes dashboard --host 127.0.0.1 --port 9119 --no-open
-```
-
-L'accès humain se fait par un tunnel SSH distinct, ouvert depuis la machine
-qui a le navigateur :
-
-```bash
-ssh -N -L 9119:127.0.0.1:9119 mon-vps
-```
-
-Puis dans le navigateur : `http://127.0.0.1:9119`.
-
-Pourquoi ne pas utiliser le tunnel permanent : le garde-fou anti-DNS-rebinding
-du dashboard (GHSA-ppp5-vxwm-4cf7) rejette toute requête dont le header Host
-n'est pas une adresse loopback. Le navigateur doit donc présenter
-`Host: 127.0.0.1`, ce qui n'arrive que si le tunnel se termine sur la machine
-qui fait tourner le navigateur et que l'on ouvre `127.0.0.1`.
-
 ## Tests
 
 Depuis la machine locale, vérifier l'agent distant :
@@ -233,9 +227,9 @@ des deux côtés ; vérifier qu'il y a des entrées dans les deux directions.
 
 ## Sécurité
 
-- Tout reste en 127.0.0.1 : l'A2A, le dashboard, les binds du tunnel. La
-  seule porte d'entrée est la connexion SSH (port non standard, clé privée,
-  fail2ban côté serveur).
+- Tout reste en 127.0.0.1 : l'A2A et les binds du tunnel. La seule porte
+  d'entrée est la connexion SSH (port non standard, clé privée, fail2ban côté
+  serveur).
 - Les tokens sont des secrets : dans `~/.hermes/.env`, jamais dans un dépôt.
 - Le texte entrant est non fiable : filtrage d'injection de prompt intégré,
   les pairs distants ne peuvent pas invoquer les commandes opérateur, et des
