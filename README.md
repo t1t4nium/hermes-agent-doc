@@ -31,5 +31,5 @@ je mets les liens officiels ci-dessous.
 
 ## Sponsor
 
-Ce dépôt est gratuit et ouvert. Si vous le trouvez utile, vous pouvez soutenir
-ce travail : [github.com/sponsors/t1t4nium](https://github.com/sponsors/t1t4nium).
+Si vous trouvez ma documentation utile, vous pouvez soutenir mon travail :
+[github.com/sponsors/t1t4nium](https://github.com/sponsors/t1t4nium).
