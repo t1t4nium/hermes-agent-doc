@@ -8,7 +8,7 @@ Instructions communes à tout setup.
 
 ### Optimisation
 
-Ajuster le swappiness pour que le système utilise d'avantage la RAM et swap moins souvent :
+Ajuster le swappiness pour que le système utilise davantage la RAM et swap moins souvent :
 
 ```
 sysctl vm.swappiness=10
@@ -37,7 +37,7 @@ Commande d'installation du [site officiel](https://hermes-agent.nousresearch.com
 curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 ```
 
-S'en suit le setup.
+S'ensuit le setup.
 
 Puis :
 
@@ -57,6 +57,17 @@ Installation du desktop :
 
 ```
 hermes desktop
+```
+
+### sudo
+
+Je crée deux règles dans `/etc/sudoers.d/hermes-agent` pour permettre au script de
+redéfinir les permissions sur le binaire `chrome-sandbox` après une mise à jour,
+sans demande de mot de passe.
+
+```
+johndoe ALL=(root) NOPASSWD: /usr/bin/chown root\:root /home/johndoe/.hermes/hermes-agent/apps/desktop/release/linux-unpacked/chrome-sandbox
+johndoe ALL=(root) NOPASSWD: /usr/bin/chmod 4755 /home/johndoe/.hermes/hermes-agent/apps/desktop/release/linux-unpacked/chrome-sandbox
 ```
 
 ## Server
