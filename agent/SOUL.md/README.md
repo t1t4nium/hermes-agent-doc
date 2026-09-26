@@ -3,6 +3,13 @@
 Le fichier SOUL.md définit la personnalité de l'agent. Il ne décrit ni ses
 compétences ni les instructions d'un projet.
 
+Un raccourci pour distinguer les quatre fichiers qui façonnent l'agent :
+
+- SOUL.md : qui est l'agent ;
+- USER.md : qui est l'utilisateur ;
+- MEMORY.md : ce que l'agent a appris ;
+- AGENTS.md : ce dont le projet a besoin.
+
 ## Rôle
 
 Le fichier fixe :
@@ -126,6 +133,17 @@ garde-fou ne bloque l'écriture sur ce chemin (seuls `config.yaml` et quelques
 chemins système sont interdits d'écriture). La règle selon laquelle l'agent ne
 modifie pas son SOUL.md de sa propre initiative relève donc d'une convention,
 pas d'une contrainte technique.
+
+## Mon usage
+
+Le SOUL.md de mon instance porte uniquement l'identité : le ton, le style, la
+franchise, la gestion du désaccord et de l'incertitude.
+
+- Rien de technique : les chemins, commandes et conventions d'un projet vont
+  dans AGENTS.md.
+- Je l'édite moi-même. Je ne compte pas sur l'agent pour le remplir à ma place.
+- L'agent ne modifie pas son SOUL.md de sa propre initiative : c'est une
+  convention que je lui impose, pas une protection technique (voir Sécurité).
 
 ## Exemples
 

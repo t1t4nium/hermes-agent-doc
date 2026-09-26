@@ -4,6 +4,13 @@ Un fichier AGENTS.md est un fichier de contexte. Son rôle est de donner à un
 agent IA les informations nécessaires pour travailler sur un projet ou dans un
 espace de travail.
 
+Un raccourci pour distinguer les quatre fichiers qui façonnent l'agent :
+
+- SOUL.md : qui est l'agent ;
+- USER.md : qui est l'utilisateur ;
+- MEMORY.md : ce que l'agent a appris ;
+- AGENTS.md : ce dont le projet a besoin.
+
 ## Rôle
 
 Le fichier indique à l'agent :
@@ -75,6 +82,19 @@ Les fichiers de contexte sont analysés avant d'être chargés, pour détecter l
 tentatives d'injection de prompt. Un fichier suspect est bloqué. Ce garde-fou ne
 remplace pas une relecture des fichiers AGENTS.md dans un dépôt partagé que vous
 n'avez pas écrit vous-même.
+
+## Mon usage
+
+Chaque projet a son AGENTS.md, déposé à la racine du dossier.
+
+- C'est le domicile de tout ce qui est propre au projet : structure,
+  conventions, instructions, chemins et ports.
+- Rien de scopé à un projet ne va dans la mémoire persistante (MEMORY.md) : la
+  mémoire est chargée dans toutes les sessions, elle ne porte que du
+  transversal.
+- Je rédige l'AGENTS.md. L'agent peut le modifier quand je le lui demande, mais
+  pas de sa propre initiative : les fichiers d'instructions d'un projet sont
+  protégés par une approbation humaine.
 
 ## Exemples
 
